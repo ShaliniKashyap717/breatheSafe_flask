@@ -3,29 +3,35 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
-  const { name, age, email, password, latitude, longitude } = req.body;
+  // Extracting exactly what is defined in your old schema
+  const { name, email, password, age, isSmoker, hasAsthma } = req.body;
 
-  console.log(req.body);
+  console.log("Incoming Signup Data:", req.body);
+  
   try {
-    const existingUser = await User.findOne({ name });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Username already exists" });
+      return res.status(400).json({ message: "Email is already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       name,
-      age,
       email,
       password: hashedPassword,
-      location: {latitude, longitude},
+      age: Number(age) || 25, // Fallback to 25 as defined in schema default
+      isSmoker,
+      hasAsthma,
+      isProfileComplete: true 
     });
 
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
+    
   } catch (error) {
-    res.status(500).json({ message: "Signup failed", error });
+    console.error("Signup Error:", error);
+    res.status(500).json({ message: "Signup failed", error: error.message });
   }
 };
 
@@ -36,13 +42,17 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    if (!user.password) {
+      return res.status(400).json({ message: "Please log in using Google." });
+    }
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
       return res.status(401).json({ message: "Invalid credentials" });
 
     const token = jwt.sign(
       { id: user._id, name: user.name },
-      "secretKey",
+      process.env.JWT_SECRET || "secretKey", 
       { expiresIn: "1h" }
     );
 
@@ -52,6 +62,7 @@ exports.login = async (req, res) => {
       name: user.name,
     });
   } catch (error) {
-    res.status(500).json({ message: "Login failed", error });
+    console.error("Login Error:", error);
+    res.status(500).json({ message: "Login failed", error: error.message });
   }
 };

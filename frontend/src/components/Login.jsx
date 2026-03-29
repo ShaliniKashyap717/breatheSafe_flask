@@ -14,6 +14,10 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
+    // 1. Let's see if the URL and data are correct BEFORE sending
+    console.log("Target Backend URL:", import.meta.env.VITE_BACKEND_URL);
+    console.log("Attempting login with:", formData);
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/login`,
@@ -28,6 +32,9 @@ const Login = () => {
 
       navigate("/home");
     } catch (error) {
+      // 2. Log the FULL error to the console so we can read it!
+      console.error("Full Axios Error:", error);
+      
       alert(error.response?.data?.message || "Login failed");
     }
   };
