@@ -1,0 +1,96 @@
+{
+    "tables": {
+        "table": {
+            "columns": {
+                "pm2_5": {
+                    "sdtype": "numerical"
+                },
+                "pm10": {
+                    "sdtype": "numerical"
+                },
+                "no": {
+                    "sdtype": "numerical"
+                },
+                "no2": {
+                    "sdtype": "numerical"
+                },
+                "nox": {
+                    "sdtype": "numerical"
+                },
+                "nh3": {
+                    "sdtype": "numerical"
+                },
+                "so2": {
+                    "sdtype": "numerical"
+                },
+                "co": {
+                    "sdtype": "numerical"
+                },
+                "ozone": {
+                    "sdtype": "numerical"
+                },
+                "benzene": {
+                    "sdtype": "numerical"
+                },
+                "toluene": {
+                    "sdtype": "numerical"
+                },
+                "temp": {
+                    "sdtype": "numerical"
+                },
+                "rh": {
+                    "sdtype": "numerical"
+                },
+                "ws": {
+                    "sdtype": "numerical"
+                },
+                "wd": {
+                    "sdtype": "numerical"
+                },
+                "sr": {
+                    "sdtype": "numerical"
+                },
+                "bp": {
+                    "sdtype": "numerical"
+                },
+                "vws": {
+                    "sdtype": "numerical"
+                },
+                "xylene": {
+                    "sdtype": "numerical"
+                },
+                "rf": {
+                    "sdtype": "numerical"
+                },
+                "at": {
+                    "sdtype": "numerical"
+                },
+                "city": {
+                    "pii": true,
+                    "sdtype": "city"
+                },
+                "state": {
+                    "pii": true,
+                    "sdtype": "administrative_unit"
+                },
+                "age": {
+                    "sdtype": "numerical"
+                },
+                "is_smoker": {
+                    "sdtype": "categorical"
+                },
+                "has_asthma": {
+                    "sdtype": "categorical"
+                },
+                "mask_type": {
+                    "sdtype": "categorical"
+                },
+                "health_risk_score": {
+                    "sdtype": "numerical"
+                }
+            }
+        }
+    },
+    "relationships": [],
+    "METADATA_SPEC_VERSION": "V1"
+}
