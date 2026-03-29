@@ -16,3 +16,6 @@ const UserSchema = new mongoose.Schema({
   hasAsthma: { type: Boolean, default: false },
   isProfileComplete: { type: Boolean, default: false }
 });
+
+// THIS IS THE MISSING LINE! It turns your schema into a usable model.
+module.exports = mongoose.model('User', UserSchema);
