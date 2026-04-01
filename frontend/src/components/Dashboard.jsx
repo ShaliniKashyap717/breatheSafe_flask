@@ -17,6 +17,10 @@ const Dashboard = () => {
 
   const { currentUser } = useContext(UserContext);
 
+  useEffect(() => {
+  console.log("Current User Data:", currentUser);
+}, [currentUser]);
+
   const [currentData, setCurrentData] = useState({
     aqi: 0,
     location: "",
@@ -258,14 +262,13 @@ const [rawAqi, setRawAqi] = useState(null);
 {/* ML PERSOANLIZED ANALYSIS CARD */}
 <div className="mb-8">
    {console.log("Dashboard state check:", { hasData, currentUser, currentData })}
-   {
-   hasData && currentUser &&(
-<PersonalizedHealthAdvisor 
-  aqiData={rawAqi} // Pass the raw data from the API
-  user={currentUser}  
-/>
-    )
-   }
+  
+{hasData && (
+  <PersonalizedHealthAdvisor 
+    aqiData={rawAqi} 
+    user={currentUser || { name: "Guest" }} 
+  />
+)}
  
 </div>
 

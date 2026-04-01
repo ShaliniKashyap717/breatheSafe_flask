@@ -1,9 +1,9 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [currentUser, setUser] = useState(null);
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -20,10 +20,9 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
- 
-return (
-  <UserContext.Provider value={{ user, setUser, logout }}>
-    {children}
-  </UserContext.Provider>
-);
+  return (
+    <UserContext.Provider value={{ currentUser, setUser, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
